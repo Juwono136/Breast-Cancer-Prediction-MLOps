@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, Union
 import pickle
 import yaml
 from ensure import ensure_annotations

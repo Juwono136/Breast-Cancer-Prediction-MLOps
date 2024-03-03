@@ -22,3 +22,14 @@ class DataTransformationConfig:
     root_dir: Path
     data_path: Path
     data_clean_path: Path
+
+
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir: Path
+    data_path: Path
+    model_path: Path
+    scaler_path: Path
+    penalty: str
+    tol: float
+    target_column: str

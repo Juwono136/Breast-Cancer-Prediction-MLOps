@@ -14,3 +14,9 @@ data_transformation:
   root_dir: artifacts/data_transformation
   data_path: artifacts/data_ingestion/data.csv
   data_clean_path: artifacts/data_transformation/data_clean.csv
+
+model_trainer:
+  root_dir: artifacts/model_trainer
+  data_path: artifacts/data_transformation/data_clean.csv
+  model_path: artifacts/model_trainer/model.pkl
+  scaler_path: artifacts/model_trainer/scaler.pkl

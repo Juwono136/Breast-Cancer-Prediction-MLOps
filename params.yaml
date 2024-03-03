@@ -1,1 +1,3 @@
-key: val
+LogisticRegression:
+  penalty: l2
+  tol: 0.0001
