@@ -1,7 +1,7 @@
 from breastCancer.constants import *
 from breastCancer.utils.common import read_yaml, create_directories
 from breastCancer.entity.config_entity import (
-    DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig)
+    DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig, ModelEvaluationConfig)
 
 
 class ConfigurationManager:
@@ -76,3 +76,23 @@ class ConfigurationManager:
         )
 
         return model_trainer_config
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+        params = self.params.LogisticRegression
+        schema = self.schema.TARGET_COLUMN
+
+        create_directories([config.root_dir])
+
+        model_evaluation_config = ModelEvaluationConfig(
+            root_dir=config.root_dir,
+            data_path=config.data_path,
+            model_path=config.model_path,
+            scaler_path=config.scaler_path,
+            metric_path=config.metric_path,
+            all_params=params,
+            target_column=schema.name,
+            mlflow_uri=config.mlflow_uri
+        )
+
+        return model_evaluation_config

@@ -20,3 +20,11 @@ model_trainer:
   data_path: artifacts/data_transformation/data_clean.csv
   model_path: artifacts/model_trainer/model.pkl
   scaler_path: artifacts/model_trainer/scaler.pkl
+
+model_evaluation:
+  root_dir: artifacts/model_evaluation
+  data_path: artifacts/data_transformation/data_clean.csv
+  model_path: artifacts/model_trainer/model.pkl
+  scaler_path: artifacts/model_trainer/scaler.pkl
+  metric_path: artifacts/model_evaluation/metrics.json
+  mlflow_uri: "https://dagshub.com/Juwono136/Breast-Cancer-Prediction-MLOps.mlflow"

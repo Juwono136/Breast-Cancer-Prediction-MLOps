@@ -33,3 +33,15 @@ class ModelTrainerConfig:
     penalty: str
     tol: float
     target_column: str
+
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    data_path: Path
+    model_path: Path
+    scaler_path: Path
+    metric_path: dict
+    all_params: dict
+    target_column: str
+    mlflow_uri: str
