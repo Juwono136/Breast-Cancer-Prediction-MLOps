@@ -1,5 +1,8 @@
+from breastCancer import logger
 from breastCancer.config.configuration import ConfigurationManager
 from breastCancer.components.model_trainer import ModelTrainer
+
+STAGE_NAME = "Model Trainer Stage"
 
 
 class ModelTrainerTrainingPipeline:
@@ -11,3 +14,16 @@ class ModelTrainerTrainingPipeline:
         model_trainer_config = config.get_model_trainer_config()
         model_trainer = ModelTrainer(config=model_trainer_config)
         model_trainer.train()
+
+
+# dvc pipeline
+if __name__ == '__main__':
+    try:
+        logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+        obj = ModelTrainerTrainingPipeline()
+        obj.main()
+        logger.info(
+            f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+    except Exception as e:
+        logger.exception(e)
+        raise e

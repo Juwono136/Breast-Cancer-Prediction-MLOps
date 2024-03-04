@@ -1,5 +1,8 @@
+from breastCancer import logger
 from breastCancer.config.configuration import ConfigurationManager
 from breastCancer.components.data_transformation import DataTransformation
+
+STAGE_NAME = "Data Transformation Stage"
 
 
 class DataTransformationTrainingPipeline:
@@ -12,3 +15,16 @@ class DataTransformationTrainingPipeline:
         data_transformation = DataTransformation(
             config=data_transformation_config)
         data_transformation.get_clean_data()
+
+
+# dvc pipeline
+if __name__ == '__main__':
+    try:
+        logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+        obj = DataTransformationTrainingPipeline()
+        obj.main()
+        logger.info(
+            f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+    except Exception as e:
+        logger.exception(e)
+        raise e

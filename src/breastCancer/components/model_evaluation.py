@@ -34,7 +34,14 @@ class ModelEvaluation:
         mlflow.set_registry_uri(self.config.mlflow_uri)
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
 
-        with mlflow.start_run():
+        # Check if there is an active run
+        active_run = mlflow.active_run()
+        if active_run:
+            run_id = active_run.info.run_id
+        else:
+            run_id = None
+
+        with mlflow.start_run(run_id=run_id):
             y_pred = model.predict(X_test)
 
             metrics_report = classification_report(

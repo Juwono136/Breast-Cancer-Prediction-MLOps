@@ -1,0 +1,119 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/breastCancer/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 066909fbd7d983bc17288f3cc5afd8a5
+      size: 1082
+    - path: data/data.csv
+      hash: md5
+      md5: 6165d90b8708bb1c1dd14245cc6bef46
+      size: 125204
+    - path: src/breastCancer/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 9b6c5dd8a5ded8469706c489491ae5c3
+      size: 895
+    outs:
+    - path: artifacts/data_ingestion/data.csv
+      hash: md5
+      md5: 6165d90b8708bb1c1dd14245cc6bef46
+      size: 125204
+  data_validation:
+    cmd: python src/breastCancer/pipeline/stage_02_data_validation.py
+    deps:
+    - path: artifacts/data_ingestion/data.csv
+      hash: md5
+      md5: 6165d90b8708bb1c1dd14245cc6bef46
+      size: 125204
+    - path: config/config.yaml
+      hash: md5
+      md5: 066909fbd7d983bc17288f3cc5afd8a5
+      size: 1082
+    - path: src/breastCancer/pipeline/stage_02_data_validation.py
+      hash: md5
+      md5: a93a6d65f1ee8173243db4aa7d8b3398
+      size: 910
+    outs:
+    - path: artifacts/data_validation/status.txt
+      hash: md5
+      md5: 86e6a2f694c57a675b3e2da6b95ff9ba
+      size: 23
+  data_transformation:
+    cmd: python src/breastCancer/pipeline/stage_03_data_transformation.py
+    deps:
+    - path: artifacts/data_ingestion/data.csv
+      hash: md5
+      md5: 6165d90b8708bb1c1dd14245cc6bef46
+      size: 125204
+    - path: config/config.yaml
+      hash: md5
+      md5: 066909fbd7d983bc17288f3cc5afd8a5
+      size: 1082
+    - path: src/breastCancer/pipeline/stage_03_data_transformation.py
+      hash: md5
+      md5: ffa4a0aafa90ba5c410364753c13dd24
+      size: 962
+    outs:
+    - path: artifacts/data_transformation/data_clean.csv
+      hash: md5
+      md5: fd92340cce01183a92291fbaabb0986f
+      size: 121928
+  training:
+    cmd: python src/breastCancer/pipeline/stage_04_model_trainer.py
+    deps:
+    - path: artifacts/data_transformation/data_clean.csv
+      hash: md5
+      md5: fd92340cce01183a92291fbaabb0986f
+      size: 121928
+    - path: config/config.yaml
+      hash: md5
+      md5: 066909fbd7d983bc17288f3cc5afd8a5
+      size: 1082
+    - path: src/breastCancer/pipeline/stage_04_model_trainer.py
+      hash: md5
+      md5: 285fb743399b2f7999c942ab1c062443
+      size: 873
+    params:
+      params.yaml:
+        LogisticRegression.penalty: l2
+        LogisticRegression.tol: 0.0001
+    outs:
+    - path: artifacts/model_trainer
+      hash: md5
+      md5: c841eee679d2a96c7693d6dc7b455a51.dir
+      size: 2719
+      nfiles: 2
+  evaluation:
+    cmd: python src/breastCancer/pipeline/stage_05_model_evaluation.py
+    deps:
+    - path: artifacts/data_transformation/data_clean.csv
+      hash: md5
+      md5: fd92340cce01183a92291fbaabb0986f
+      size: 121928
+    - path: artifacts/model_trainer/model.pkl
+      hash: md5
+      md5: 151cf9c31017e92173454f493d0e4631
+      size: 948
+    - path: artifacts/model_trainer/scaler.pkl
+      hash: md5
+      md5: a2f7fb794c76f37c6c552b9cd46c6909
+      size: 1771
+    - path: config/config.yaml
+      hash: md5
+      md5: 066909fbd7d983bc17288f3cc5afd8a5
+      size: 1082
+    - path: src/breastCancer/pipeline/stage_05_model_evaluation.py
+      hash: md5
+      md5: 38f64982ddeacec7f7f65a4905831586
+      size: 916
+    params:
+      params.yaml:
+        LogisticRegression.penalty: l2
+        LogisticRegression.tol: 0.0001
+    outs:
+    - path: artifacts/model_evaluation/metrics.json
+      hash: md5
+      md5: 77ff1e59371a20f0f4f76aae51a5500e
+      size: 726
