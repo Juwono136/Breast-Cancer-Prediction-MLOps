@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def get_scaled_values(input_dict):
-    data = pd.read_csv("artifacts/data_transformation/data_clean.csv")
+    data = pd.read_csv("data/data_clean.csv")
 
     X = data.drop(['diagnosis'], axis=1)
 

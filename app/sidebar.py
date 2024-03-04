@@ -5,7 +5,7 @@ import pandas as pd
 def add_sidebar():
     st.sidebar.header("Cell Nuclei Measurements")
 
-    data = pd.read_csv("artifacts/data_transformation/data_clean.csv")
+    data = pd.read_csv("data/data_clean.csv")
 
     slider_labels = [
         ("Radius (mean)", "radius_mean"),
