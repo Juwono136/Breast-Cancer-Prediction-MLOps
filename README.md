@@ -11,3 +11,5 @@
 7. Update the pipeline
 8. Update the main.py
 9. Update the dvc.yaml
+
+Project demo: https://breast-cancer-prediction-mlops-chjwskpun9fl8uzqtmxmr6.streamlit.app/
